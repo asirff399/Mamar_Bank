@@ -12,7 +12,8 @@
 <div class="bg-white px-3 py-4 rounded-xl my-6">
 
     <h4 class="font-bold text-3xl text-left pb-5">Account NO: {{request.user.account.account_no}}</h4>
-    <h1 class="font-bold text-3xl text-center pb-5">Update Profile Information</h1>
+    <h1 class="font-bold text-3xl text-center pb-5 mb-5">Update Profile Information</h1>
+    <a class="text-gray-900 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 font-medium rounded-lg text-sm p-4 text-center me-2 mb-2 mt-5" href="{% url 'pass_change' %}">Change Your Password</a>
     <div class="w-full mt-10">
         <form method="post" class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4">
             {% csrf_token %} {% for hidden_field in form.hidden_fields %} {{ hidden_field.errors }} {{ hidden_field }} {% endfor %}

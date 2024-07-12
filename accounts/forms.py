@@ -17,11 +17,11 @@ class UserRegistrationForm(UserCreationForm):
         model = User
         fields = ['username', 'password1', 'password2', 'first_name', 'last_name', 'email', 'account_type', 'birth_date','gender', 'postal_code', 'city','country', 'street_address']
         
-        # form.save()
+        
     def save(self, commit=True):
-        our_user = super().save(commit=False) # ami database e data save korbo na ekhn
+        our_user = super().save(commit=False) 
         if commit == True:
-            our_user.save() # user model e data save korlam
+            our_user.save()
             account_type = self.cleaned_data.get('account_type')
             gender = self.cleaned_data.get('gender')
             postal_code = self.cleaned_data.get('postal_code')
@@ -61,8 +61,6 @@ class UserRegistrationForm(UserCreationForm):
             })
 
 
-# profile ki ki jinis update korte parbe amader user
-
 class UserUpdateForm(forms.ModelForm):
     birth_date = forms.DateField(widget=forms.DateInput(attrs={'type':'date'}))
     gender = forms.ChoiceField(choices=GENDER_TYPE)
@@ -87,7 +85,7 @@ class UserUpdateForm(forms.ModelForm):
                     'focus:bg-white focus:border-gray-500'
                 )
             })
-        # jodi user er account thake 
+
         if self.instance:
             try:
                 user_account = self.instance.account
@@ -110,7 +108,7 @@ class UserUpdateForm(forms.ModelForm):
         if commit:
             user.save()
 
-            user_account, created = UserBankAccount.objects.get_or_create(user=user) # jodi account thake taile seta jabe user_account ar jodi account na thake taile create hobe ar seta created er moddhe jabe
+            user_account, created = UserBankAccount.objects.get_or_create(user=user)
             user_address, created = UserAddress.objects.get_or_create(user=user) 
 
             user_account.account_type = self.cleaned_data['account_type']

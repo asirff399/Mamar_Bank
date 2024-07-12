@@ -127,9 +127,10 @@ class SendMoneyView(TransactionCreateMixin):
 
         messages.success(
             self.request,
-            f'Successfully send money {"{:,.2f}".format(float(amount))}$ from your account to {{reciver_account.account_no}}'
+            f'Successfully send money {"{:,.2f}".format(float(amount))}$ from your account to {reciver_account}'
         )
         send_transaction_email(self.request.user, amount, "Send Money Message", "transactions/send_money_email.html")
+        send_transaction_email(reciver_account.user, amount, "Recived Money Message", "transactions/recive_money_email.html")
         return super().form_valid(form)
 
 class LoanRequestView(TransactionCreateMixin):
