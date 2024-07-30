@@ -7,6 +7,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.views import LoginView, LogoutView,PasswordChangeView
 from django.views import View
 from django.shortcuts import redirect
+from transactions.views import send_transaction_email
 
 class UserRegistrationView(FormView):
     template_name = 'accounts/user_registration.html'
@@ -40,6 +41,7 @@ class UserPasswordChangeView(PasswordChangeView):
         response = super().form_valid(form)
         update_session_auth_hash(self.request,form.user)
         messages.success(self.request,'Password changed successfully.')
+        send_transaction_email(self.request.user,0,'Password Changed Message','accounts/pass_change_email.html')
         return response
 
 class UserBankAccountUpdateView(View):
